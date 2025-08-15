@@ -1,9 +1,8 @@
 import express from "express";
 import homeController from "../controllers/homeController";
 import userController from "../controllers/userController";
-import campaignController from '../controllers/campaignController';
-
-
+import campaignController from "../controllers/campaignController";
+import cartController from "../controllers/cartController";
 
 let router = express.Router();
 
@@ -32,6 +31,12 @@ let initWebRoutes = (app) => {
    router.delete("/api/delete-campaign", campaignController.handleDeleteCampaign);
    router.get("/api/get-campaigns-by-province", campaignController.handleGetCampaignsByProvince);
 
+   //api cart-item
+   router.get("/api/get-all-carts", cartController.handleGetAllCarts);
+   router.post("/api/create-cart", cartController.handleCreateCart);
+   router.put("/api/update-cart", cartController.handleUpdateCart);
+   router.delete("/api/delete-cart", cartController.handleDeleteCart);
+   router.get("/api/get-cart-by-user", cartController.handleGetCartByUser);
    return app.use("/", router);
 };
 
