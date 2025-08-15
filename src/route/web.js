@@ -2,12 +2,12 @@ import express from "express";
 import homeController from "../controllers/homeController";
 import userController from "../controllers/userController";
 import campaignController from "../controllers/campaignController";
-import cartController from "../controllers/cartController";
 import provinceController from "../controllers/provinceController";
 import partnerController from "../controllers/partnerController";
 import campaignDonationController from "../controllers/campaignDonationController";
-import productController from '../controllers/productController';
-
+import productController from "../controllers/productController";
+import cartController from "../controllers/cartController";
+import donationController from "../controllers/donationController";
 
 let router = express.Router();
 
@@ -65,6 +65,13 @@ let initWebRoutes = (app) => {
    router.put("/api/update-cart", cartController.handleUpdateCart);
    router.delete("/api/delete-cart", cartController.handleDeleteCart);
    router.get("/api/get-cart-by-user", cartController.handleGetCartByUser);
+
+   //api donation
+   router.get("/api/get-all-donations", donationController.handleGetAllDonations);
+   router.post("/api/create-donation", donationController.handleCreateDonation);
+   router.put("/api/update-donation", donationController.handleUpdateDonation);
+   router.delete("/api/delete-donation", donationController.handleDeleteDonation);
+   router.get("/api/get-donation-by-user", donationController.handleGetDonationByUser);
    return app.use("/", router);
 };
 
