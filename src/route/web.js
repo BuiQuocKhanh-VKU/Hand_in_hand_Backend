@@ -3,6 +3,8 @@ import homeController from "../controllers/homeController";
 import userController from "../controllers/userController";
 import campaignController from "../controllers/campaignController";
 import cartController from "../controllers/cartController";
+import provinceController from '../controllers/provinceController';
+
 
 let router = express.Router();
 
@@ -30,6 +32,10 @@ let initWebRoutes = (app) => {
    router.put("/api/update-campaign", campaignController.handleUpdateCampaign);
    router.delete("/api/delete-campaign", campaignController.handleDeleteCampaign);
    router.get("/api/get-campaigns-by-province", campaignController.handleGetCampaignsByProvince);
+
+   //api province
+   router.get("/api/get-all-provinces", provinceController.handleGetAllProvinces);
+   router.get("/api/get-province-overview", provinceController.handleGetProvinceOverview);
 
    //api cart-item
    router.get("/api/get-all-carts", cartController.handleGetAllCarts);
