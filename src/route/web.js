@@ -8,6 +8,7 @@ import campaignDonationController from "../controllers/campaignDonationControlle
 import productController from "../controllers/productController";
 import cartController from "../controllers/cartController";
 import donationController from "../controllers/donationController";
+import emailController from '../controllers/emailController';
 
 let router = express.Router();
 
@@ -72,6 +73,10 @@ let initWebRoutes = (app) => {
    router.put("/api/update-donation", donationController.handleUpdateDonation);
    router.delete("/api/delete-donation", donationController.handleDeleteDonation);
    router.get("/api/get-donation-by-user", donationController.handleGetDonationByUser);
+
+   //api email
+   router.post("/api/send-otp", emailController.handleSendOTP);
+
    return app.use("/", router);
 };
 
