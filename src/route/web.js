@@ -1,22 +1,38 @@
 import express from "express";
 import homeController from "../controllers/homeController";
+import userController from "../controllers/userController";
+import campaignController from '../controllers/campaignController';
+
+
 
 let router = express.Router();
 
 let initWebRoutes = (app) => {
-  router.get("/", homeController.getHomePage);
-  // Route for the home page
-  router.post("/post-crud", homeController.postCRUD);
-  router.get("/signin", homeController.getSignInPage);
-  router.get("/signup", homeController.getSignUpPage);
-  router.post("/post-crud", homeController.postCRUD);
-  router.get("/get-crud", homeController.displayGetCRUD);
-  router.get("/edit-crud", homeController.getEditCRUD);
-  router.post("/put-crud", homeController.putCRUD);
-  router.get("/delete-crud", homeController.deleteCRUD);
+   router.get("/", homeController.getHomePage);
+   router.post("/post-crud", homeController.postCRUD);
+   router.get("/signin", homeController.getSignInPage);
+   router.get("/signup", homeController.getSignUpPage);
+   router.post("/post-crud", homeController.postCRUD);
+   router.get("/get-crud", homeController.displayGetCRUD);
+   router.get("/edit-crud", homeController.getEditCRUD);
+   router.post("/put-crud", homeController.putCRUD);
+   router.get("/delete-crud", homeController.deleteCRUD);
 
-  
-  return app.use("/", router);
+   //api user
+   router.post("/api/login", userController.handleLogin);
+   router.get("/api/get-all-users", userController.handleGetAllUsers);
+   router.post("/api/create-new-user", userController.handleCreateNewUser);
+   router.put("/api/edit-user", userController.handleEditUser);
+   router.delete("/api/delete-user", userController.handleDeleteUser);
+
+   //api campaign
+   router.get("/api/get-all-campaigns", campaignController.handleGetAllCampaigns);
+   router.post("/api/create-campaign", campaignController.handleCreateCampaign);
+   router.put("/api/update-campaign", campaignController.handleUpdateCampaign);
+   router.delete("/api/delete-campaign", campaignController.handleDeleteCampaign);
+   router.get("/api/get-campaigns-by-province", campaignController.handleGetCampaignsByProvince);
+
+   return app.use("/", router);
 };
 
 module.exports = initWebRoutes;
