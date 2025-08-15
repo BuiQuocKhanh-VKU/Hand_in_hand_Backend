@@ -5,6 +5,7 @@ import campaignController from "../controllers/campaignController";
 import cartController from "../controllers/cartController";
 import provinceController from "../controllers/provinceController";
 import partnerController from "../controllers/partnerController";
+import campaignDonationController from "../controllers/campaignDonationController";
 
 let router = express.Router();
 
@@ -42,6 +43,13 @@ let initWebRoutes = (app) => {
    router.post("/api/create-partner", partnerController.handleCreatePartner);
    router.put("/api/update-partner", partnerController.handleUpdatePartner);
    router.delete("/api/delete-partner", partnerController.handleDeletePartner);
+
+   //api campaign-donation
+   router.get("/api/get-all-campaign-donations", campaignDonationController.handleGetAllCampaignDonations);
+   router.post("/api/create-campaign-donation", campaignDonationController.handleCreateCampaignDonation);
+   router.put("/api/update-campaign-donation", campaignDonationController.handleUpdateCampaignDonation);
+   router.delete("/api/delete-campaign-donation", campaignDonationController.handleDeleteCampaignDonation);
+   router.get("/api/get-campaign-donations-by-user", campaignDonationController.handleGetCampaignDonationsByUser);
 
    //api cart-item
    router.get("/api/get-all-carts", cartController.handleGetAllCarts);
