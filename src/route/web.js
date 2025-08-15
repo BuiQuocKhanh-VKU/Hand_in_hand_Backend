@@ -3,8 +3,8 @@ import homeController from "../controllers/homeController";
 import userController from "../controllers/userController";
 import campaignController from "../controllers/campaignController";
 import cartController from "../controllers/cartController";
-import provinceController from '../controllers/provinceController';
-
+import provinceController from "../controllers/provinceController";
+import partnerController from "../controllers/partnerController";
 
 let router = express.Router();
 
@@ -36,6 +36,12 @@ let initWebRoutes = (app) => {
    //api province
    router.get("/api/get-all-provinces", provinceController.handleGetAllProvinces);
    router.get("/api/get-province-overview", provinceController.handleGetProvinceOverview);
+
+   //api partner
+   router.get("/api/get-all-partners", partnerController.handleGetAllPartners);
+   router.post("/api/create-partner", partnerController.handleCreatePartner);
+   router.put("/api/update-partner", partnerController.handleUpdatePartner);
+   router.delete("/api/delete-partner", partnerController.handleDeletePartner);
 
    //api cart-item
    router.get("/api/get-all-carts", cartController.handleGetAllCarts);
