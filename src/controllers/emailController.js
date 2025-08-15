@@ -17,7 +17,7 @@ let handleSendOTP = async (req, res) => {
    } catch (error) {
       return res.status(500).json({
          errCode: 1,
-         message: "Error from server",
+         message: "Error from  server",
          console: error,
       });
    }
