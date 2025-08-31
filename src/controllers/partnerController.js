@@ -71,6 +71,7 @@ let handleDeletePartner = async (req, res) => {
    }
 };
 
+
 module.exports = {
    handleGetAllPartners,
    handleCreatePartner,

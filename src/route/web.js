@@ -8,8 +8,7 @@ import campaignDonationController from "../controllers/campaignDonationControlle
 import productController from "../controllers/productController";
 import cartController from "../controllers/cartController";
 import donationController from "../controllers/donationController";
-import emailController from '../controllers/emailController';
-
+import emailController from "../controllers/emailController";
 let router = express.Router();
 
 let initWebRoutes = (app) => {
@@ -53,7 +52,8 @@ let initWebRoutes = (app) => {
    router.put("/api/update-campaign-donation", campaignDonationController.handleUpdateCampaignDonation);
    router.delete("/api/delete-campaign-donation", campaignDonationController.handleDeleteCampaignDonation);
    router.get("/api/get-campaign-donations-by-user", campaignDonationController.handleGetCampaignDonationsByUser);
-
+   router.get('/api/get-campaign-donations-by-campaign', campaignDonationController.handleGetCampaignDonationsByCampaign);
+   
    //api product
    router.get("/api/get-all-products", productController.handleGetAllProducts);
    router.post("/api/create-product", productController.handleCreateProduct);

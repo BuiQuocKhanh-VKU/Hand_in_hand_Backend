@@ -92,10 +92,25 @@ let handleDeleteCampaignDonation = async (req, res) => {
    }
 };
 
+let handleGetCampaignDonationsByCampaign = async (req, res) => {
+   try {
+      const id = Number(req.query.id);
+      if (!id) {
+         return res.status(400).json({ errCode: 1, message: "Missing required parameter!", campaignDonations: [] });
+      }
+      const campaignDonations = await campaignDonationService.getCampaignDonationsByCampaign(id);
+      return res.status(200).json({ errCode: 0, message: "OK", campaignDonations });
+   } catch (error) {
+      console.error("getCampaignDonationsByCampaign ERROR:", error);
+      return res.status(500).json({ errCode: 1, message: error.message || "Error from server" });
+   }
+};
+
 module.exports = {
    handleGetAllCampaignDonations,
    handleCreateCampaignDonation,
    handleUpdateCampaignDonation,
    handleDeleteCampaignDonation,
    handleGetCampaignDonationsByUser,
+   handleGetCampaignDonationsByCampaign,
 };

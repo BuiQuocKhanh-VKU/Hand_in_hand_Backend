@@ -130,10 +130,22 @@ let deleteCampaignDonation = (id) => {
    });
 };
 
+let getCampaignDonationsByCampaign = async (campaignId) => {
+   return db.CampaignDonation.findAll({
+      where: { campaign_id: campaignId }, // hoặc campaignId nếu cột camelCase
+      include: [
+         { model: db.Campaign, as: "campaign", attributes: ["title"] },
+         { model: db.User, as: "user", attributes: ["id", "email", "name"] },
+      ],
+      order: [["createdAt", "DESC"]],
+   });
+};
+
 module.exports = {
    getAllCampaignDonations,
    createCampaignDonation,
    updateCampaignDonation,
    deleteCampaignDonation,
    getCampaignDonationsByUser,
+   getCampaignDonationsByCampaign,
 };
