@@ -71,10 +71,35 @@ let handleDeletePartner = async (req, res) => {
    }
 };
 
+let handleGetPartnerByCampaignId = async (req, res) => {
+   try {
+      let id = req.query.id; // Lấy id từ query params
+      if (!id) {
+         return res.status(400).json({
+            errCode: 1,
+            message: "Missing required parameter!",
+            partnerCampaign: [],
+         });
+      }
+      let partnerCampaign = await partnerService.getPartnerByCampaignId(id);
+      return res.status(200).json({
+         errCode: 0,
+         message: "OK",
+         partners: partnerCampaign,
+      });
+   } catch (error) {
+      return res.status(500).json({
+         errCode: 1,
+         message: "Error from server",
+         console: error,
+      });
+   }
+};
 
 module.exports = {
    handleGetAllPartners,
    handleCreatePartner,
    handleUpdatePartner,
    handleDeletePartner,
+   handleGetPartnerByCampaignId,
 };

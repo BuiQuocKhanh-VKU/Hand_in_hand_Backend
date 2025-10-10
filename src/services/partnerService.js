@@ -101,9 +101,18 @@ let updatePartner = (data) => {
    });
 };
 
+let getPartnerByCampaignId = async (campaignId) => {
+   return db.Partner.findAll({
+      where: { campaign_id: campaignId },
+      attributes: ["id", "logo", "name"],
+      order: [["createdAt", "DESC"]],
+   });
+};
+
 module.exports = {
    getAllPartners: getAllPartners,
    createPartner: createPartner,
    deletePartner: deletePartner,
    updatePartner: updatePartner,
+   getPartnerByCampaignId: getPartnerByCampaignId,
 };

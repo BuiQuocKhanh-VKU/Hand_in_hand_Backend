@@ -94,10 +94,28 @@ let handleGetCampaignsByProvince = async (req, res) => {
    }
 };
 
+let getCampaignStatusCounts = async (req, res) => {
+    try {
+        let counts = await campaignService.getCampaignStatusCounts();
+        return res.status(200).json({
+            errCode: 0,
+            message: "OK",
+            counts,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            errCode: 1,
+            message: "Error from server",
+            console: error,
+        });
+    }
+}
+
 module.exports = {
    handleGetAllCampaigns,
    handleCreateCampaign,
    handleUpdateCampaign,
    handleDeleteCampaign,
    handleGetCampaignsByProvince,
+   getCampaignStatusCounts,
 };

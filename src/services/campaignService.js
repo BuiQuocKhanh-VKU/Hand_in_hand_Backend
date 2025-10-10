@@ -1,4 +1,5 @@
 import db from "../models/index";
+import e from "cors";
 
 let getAllCampaigns = (id) => {
    return new Promise(async (resolve, reject) => {
@@ -72,6 +73,24 @@ let getCampaignByProvinceId = (provinceId) => {
          reject(error);
       }
    });
+};
+
+let getCampaignStatusCounts = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let ongoingCount = await db.Campaign.count({ where: { status: 'ongoing' } });
+            let upcomingCount = await db.Campaign.count({ where: { status: 'upcoming' } });
+            let endedCount = await db.Campaign.count({ where: { status: 'ended' } });
+
+            resolve([
+                { value: ongoingCount, name: 'Ongoing' },
+                { value: upcomingCount, name: 'Upcoming' },
+                { value: endedCount, name: 'Ended' }
+            ]);
+        } catch (error) {
+            reject(error);
+        }
+    });
 };
 
 let createCampaign = (data) => {
@@ -192,6 +211,7 @@ let deleteCampaign = (id) => {
 module.exports = {
    getAllCampaigns,
    getCampaignByProvinceId,
+   getCampaignStatusCounts,
    createCampaign,
    updateCampaign,
    deleteCampaign,

@@ -35,6 +35,8 @@ let initWebRoutes = (app) => {
    router.put("/api/update-campaign", campaignController.handleUpdateCampaign);
    router.delete("/api/delete-campaign", campaignController.handleDeleteCampaign);
    router.get("/api/get-campaigns-by-province", campaignController.handleGetCampaignsByProvince);
+   router.get("/api/get-campaign-status-counts", campaignController.getCampaignStatusCounts);
+
 
    //api province
    router.get("/api/get-all-provinces", provinceController.handleGetAllProvinces);
@@ -45,6 +47,7 @@ let initWebRoutes = (app) => {
    router.post("/api/create-partner", partnerController.handleCreatePartner);
    router.put("/api/update-partner", partnerController.handleUpdatePartner);
    router.delete("/api/delete-partner", partnerController.handleDeletePartner);
+   router.get("/api/get-partner-by-campaign", partnerController.handleGetPartnerByCampaignId);
 
    //api campaign-donation
    router.get("/api/get-all-campaign-donations", campaignDonationController.handleGetAllCampaignDonations);
@@ -52,8 +55,11 @@ let initWebRoutes = (app) => {
    router.put("/api/update-campaign-donation", campaignDonationController.handleUpdateCampaignDonation);
    router.delete("/api/delete-campaign-donation", campaignDonationController.handleDeleteCampaignDonation);
    router.get("/api/get-campaign-donations-by-user", campaignDonationController.handleGetCampaignDonationsByUser);
-   router.get('/api/get-campaign-donations-by-campaign', campaignDonationController.handleGetCampaignDonationsByCampaign);
-   
+   router.get(
+      "/api/get-campaign-donations-by-campaign",
+      campaignDonationController.handleGetCampaignDonationsByCampaign
+   );
+
    //api product
    router.get("/api/get-all-products", productController.handleGetAllProducts);
    router.post("/api/create-product", productController.handleCreateProduct);

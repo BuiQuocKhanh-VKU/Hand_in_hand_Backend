@@ -141,6 +141,18 @@ let getCampaignDonationsByCampaign = async (campaignId) => {
    });
 };
 
+const getCampaignStatusCounts = async () => {
+   // ví dụ cột status có các giá trị: 'running', 'completed', 'paused'
+   const rows = await db.Campaign.findAll({
+      attributes: ["status", [db.Sequelize.fn("COUNT", db.Sequelize.col("status")), "cnt"]],
+      group: ["status"],
+      raw: true,
+   });
+
+   // Map sang [{name, value}]
+   return rows.map((r) => ({ name: r.status, value: Number(r.cnt) }));
+};
+
 module.exports = {
    getAllCampaignDonations,
    createCampaignDonation,
@@ -148,4 +160,5 @@ module.exports = {
    deleteCampaignDonation,
    getCampaignDonationsByUser,
    getCampaignDonationsByCampaign,
+   getCampaignStatusCounts,
 };
