@@ -37,7 +37,6 @@ let initWebRoutes = (app) => {
    router.get("/api/get-campaigns-by-province", campaignController.handleGetCampaignsByProvince);
    router.get("/api/get-campaign-status-counts", campaignController.getCampaignStatusCounts);
 
-
    //api province
    router.get("/api/get-all-provinces", provinceController.handleGetAllProvinces);
    router.get("/api/get-province-overview", provinceController.handleGetProvinceOverview);
@@ -79,6 +78,7 @@ let initWebRoutes = (app) => {
    router.put("/api/update-donation", donationController.handleUpdateDonation);
    router.delete("/api/delete-donation", donationController.handleDeleteDonation);
    router.get("/api/get-donation-by-user", donationController.handleGetDonationByUser);
+   router.get("/api/get-donations-count-for-current-week", donationController.handleGetDonationsCountForCurrentWeek);
 
    //api email
    router.post("/api/send-otp", emailController.handleSendOTP);

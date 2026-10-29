@@ -96,10 +96,29 @@ let handleGetDonationByUser = async (req, res) => {
    }
 };
 
+let handleGetDonationsCountForCurrentWeek = async (req, res) => {
+    try {
+        let count = await donationService.getDonationsCountForCurrentWeek();
+        return res.status(200).json({
+            errCode: 0,
+            message: "OK",
+            count,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            errCode: 1,
+            message: "Error from server",
+            console: error,
+        });
+    }
+};
+
+
 module.exports = {
    handleGetAllDonations,
    handleCreateDonation,
    handleUpdateDonation,
    handleDeleteDonation,
    handleGetDonationByUser,
+   handleGetDonationsCountForCurrentWeek,
 };

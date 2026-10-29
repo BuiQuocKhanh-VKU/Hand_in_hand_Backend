@@ -1,5 +1,7 @@
 import db from "../models/index.js";
 import emailService from "./emailService.js";
+const { Op } = require('sequelize');
+
 let getAllDonations = (id) => {
    return new Promise(async (resolve, reject) => {
       try {
@@ -137,10 +139,46 @@ let getAllDonationsByUser = (userId) => {
    });
 };
 
+let getDonationsCountForCurrentWeek = () => {
+   return new Promise(async (resolve, reject) => {
+      try {
+         let startOfWeek = new Date();
+         startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
+         startOfWeek.setHours(0, 0, 0, 0);
+
+         let endOfWeek = new Date(startOfWeek);
+         endOfWeek.setDate(endOfWeek.getDate() + 7);
+
+         let donations = await db.Donation.findAll({
+            where: {
+               createdAt: {
+                  [Op.between]: [startOfWeek, endOfWeek],
+               },
+            },
+            attributes: [
+               [db.sequelize.fn("DAYOFWEEK", db.sequelize.col("createdAt")), "day"],
+               [db.sequelize.fn("COUNT", db.sequelize.col("id")), "count"],
+            ],
+            group: ["day"],
+         });
+
+         let donationCounts = Array(7).fill(0);
+         donations.forEach((donation) => {
+            donationCounts[donation.dataValues.day - 1] = donation.dataValues.count;
+         });
+
+         resolve(donationCounts);
+      } catch (error) {
+         reject(error);
+      }
+   });
+};
+
 module.exports = {
    getAllDonations: getAllDonations,
    createDonation: createDonation,
    deleteDonation: deleteDonation,
    updateDonation: updateDonation,
    getAllDonationsByUser: getAllDonationsByUser,
+   getDonationsCountForCurrentWeek: getDonationsCountForCurrentWeek,
 };
